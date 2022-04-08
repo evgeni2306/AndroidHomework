@@ -1,11 +1,16 @@
 package com.example.myapplication;
 
+import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.TextClock;
+import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import org.w3c.dom.Text;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -13,7 +18,7 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class ReceiverFragment extends Fragment {
-
+    SenderFragment senderFragment;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -26,9 +31,11 @@ public class ReceiverFragment extends Fragment {
     public ReceiverFragment() {
         // Required empty public constructor
     }
-public void onAttach(Context context){
-super.onAttach(context);
-}
+
+    public void onAttach(Context context) {
+        super.onAttach(context);
+    }
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -54,6 +61,7 @@ super.onAttach(context);
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        senderFragment = new SenderFragment();
     }
 
     @Override
@@ -62,4 +70,31 @@ super.onAttach(context);
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_receiver, container, false);
     }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Button Button = view.findViewById(R.id.receivebutton);
+        TextView text = view.findViewById(R.id.receivetext);
+
+
+        Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                text.setText("all messages is read");
+//                getActivity().onBackPressed();
+            }
+        });
+
+
+    }
+//    public void backButtonWasPressed() {
+//        requireActivity().getSupportFragmentManager()
+//                .beginTransaction()
+//                .replace(R.id.receiverfragment,senderFragment)
+//                .commit();
+//    }
+
+
+
 }

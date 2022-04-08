@@ -61,6 +61,8 @@ public class SenderFragment extends Fragment {
 
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -85,7 +87,7 @@ replaceFragment();
     private void replaceFragment(){
         requireActivity().getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.senderfragment,receiverFragment)
+                .replace(R.id.senderfragment,receiverFragment,"sometag")
                 .commit();
     }
 }
