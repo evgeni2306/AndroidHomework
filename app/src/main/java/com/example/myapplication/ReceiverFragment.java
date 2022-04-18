@@ -1,5 +1,8 @@
 package com.example.myapplication;
 
+import android.graphics.Color;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AccelerateInterpolator;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.os.Bundle;
@@ -11,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import org.w3c.dom.Text;
+import android.system.*;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,25 +79,42 @@ public class ReceiverFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Button Button = view.findViewById(R.id.receivebutton);
-        TextView text = view.findViewById(R.id.receivetext);
-
+        View square = view.findViewById(R.id.square);
+        View block = view.findViewById(R.id.block);
 
         Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                text.setText("all messages is read");
-//                getActivity().onBackPressed();
+                square.animate()
+                        .scaleX(1.5f)
+                        .scaleY(1.5f)
+                        .translationX(24)
+                        .setDuration(400L)
+                        .rotationX(2)
+                        .setInterpolator(new AccelerateDecelerateInterpolator())
+                        .start();
+
+
+                block.animate()
+                        .scaleY(6)
+                        .translationY(80)
+                        .translationX(24)
+                        .scaleX(0.94f)
+                        .setDuration(400L)
+                        .setInterpolator(new AccelerateDecelerateInterpolator())
+                        .start();
+                square.setBackgroundColor(Color.parseColor("#FFFF2903"));
+
+
+
+
+
+
             }
         });
 
 
     }
-//    public void backButtonWasPressed() {
-//        requireActivity().getSupportFragmentManager()
-//                .beginTransaction()
-//                .replace(R.id.receiverfragment,senderFragment)
-//                .commit();
-//    }
 
 
 
