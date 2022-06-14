@@ -1,82 +1,72 @@
 package com.example.myapplication;
-import java.util.Objects;
 
-public class CardB {
-    private final int Rank;
-    private final Suit CardsSuit;
+import  com.example.myapplication.Suit;
 
-    public static final String[] Ranks = new String[]
-            {
-                    "Two",
-                    "Three",
-                    "Four",
-                    "Five",
-                    "Six",
-                    "Seven",
-                    "Eight",
-                    "Nine",
-                    "Ten",
-                    "Jack",
-                    "Queen",
-                    "King",
-                    "Ace",
-                    "Joker"
-            };
+public class CardB implements Comparable<CardB>{
+    private final int rank;
+    private final Suit suit;
+    private static final String[] dignities = new String[]{"Ace", "Jack", "Queen", "King", "Joker"};
 
-    public CardB(int rank, Suit suit)
-    {
-        Rank = rank;
-        CardsSuit = suit;
+    public CardB(int rank, Suit suit) {
+        this.rank = rank;
+        this.suit = suit;
     }
 
-    public int getRank()
-    {
-        return  Rank;
+    public int getRank() {
+        return rank;
     }
 
-    public Suit getSuit()
-    {
-        return CardsSuit;
+    public Suit getSuit() {
+        return suit;
+    }
+
+    public boolean isStandardDeck() {
+        return rank <= 14;
+    }
+
+    public boolean isStronger(CardB card) {
+        if (suit == card.suit)
+            return rank > card.rank;
+        return false;
     }
 
     @Override
-    public String toString()
-    {
-        return "CardB{" +
-                "Rank=" + Ranks[Rank] +
-                ", CardsSuit=" + CardsSuit.toString() +
-                '}';
+    public int compareTo(CardB card) {
+        if (this.equals(card))
+            return 0;
+        if(this.isStronger(card) || suit.ordinal() > card.suit.ordinal())
+            return 1;
+        return -1;
+    }
+
+    public static int compare(CardB first, CardB second) {
+        return first.compareTo(second);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CardB cardB = (CardB) o;
-        return Rank == cardB.Rank && CardsSuit == cardB.CardsSuit;
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        CardB cardB = (CardB) obj;
+        return rank == cardB.rank && suit == cardB.suit;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Rank, CardsSuit);
+        return rank * suit.hashCode();
     }
 
-    public Boolean isIn54()
-    {
-        return (52/4) >= Rank+1;
+    @Override
+    public String toString() {
+        String currentRank;
+        int rankBeforeJack = 10;
+        if (rank == 1)
+            currentRank = dignities[0];
+        else if (rank > rankBeforeJack)
+            currentRank = dignities[rank - rankBeforeJack];
+        else
+            currentRank = String.valueOf(rank);
+        return String.format("Card{Suit: %s, Rank: %s}", suit, currentRank);
     }
-    public Boolean isStronger(CardB card)
-    {
-        if(card.getSuit() != this.CardsSuit)
-            return false;
-        return card.getRank() > this.Rank;
-    }
-    public int Compare(CardB card)
-    {
-        return card.getSuit().ordinal() - this.CardsSuit.ordinal();
-    }
-    public static int Compare(CardB a, CardB b)
-    {
-        return a.getSuit().ordinal() - b.getSuit().ordinal();
-    }
+
 }

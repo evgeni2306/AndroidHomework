@@ -1,50 +1,39 @@
 package com.example.myapplication;
-import java.util.Dictionary;
-import java.util.Enumeration;
+
+import  com.example.myapplication.Suit;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class CardC {
-    private int Rank;
-    private Suit CardsSuit;
-
-    private static int MaxDiamonds = 0;
-    private static int MaxClubs = 0;
-    private static int MaxHearts = 0;
-    private static int MaxSpades = 0;
-
-    public CardC(int rank, Suit suit)
-    {
-        Rank = rank;
-        CardsSuit = suit;
-    }
-    public CardC(Suit suit)
-    {
-        CardsSuit = suit;
-        switch (suit)
+    private static final Map<Suit, Integer> MaxRanks = new HashMap() {
         {
-            case clubs:
-                Rank = MaxClubs++;
-                break;
-            case hearts:
-                Rank = MaxHearts++;
-                break;
-            case spades:
-                Rank = MaxSpades++;
-                break;
-            case diamonds:
-                Rank = MaxDiamonds++;
-                break;
+            put(Suit.diamonds, 0);
+            put(Suit.clubs, 0);
+            put(Suit.spades, 0);
+            put(Suit.hearts, 0);
         }
+    };
+    private final int rank;
+    private final Suit suit;
+
+    public CardC(int rank, Suit suit) {
+        int currentMaxRank = Math.max(MaxRanks.get(suit), rank);
+        MaxRanks.put(suit, currentMaxRank);
+        this.rank = rank;
+        this.suit = suit;
     }
 
-    public int getRank()
-    {
-        return  Rank;
+    public CardC(Suit suit) {
+        this.suit = suit;
+        this.rank = MaxRanks.get(suit) + 1;
     }
 
-    public Suit getSuit()
-    {
-        return CardsSuit;
+    public int getRank() {
+        return rank;
+    }
+
+    public Suit getSuit() {
+        return suit;
     }
 }

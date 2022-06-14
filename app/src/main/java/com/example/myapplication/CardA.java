@@ -1,11 +1,10 @@
 package com.example.myapplication;
-public class CardA {
-    public int Rank;
-    public Suit CardsSuit;
+import  com.example.myapplication.Suit;
 
-    public CardA()
-    {
-        Rank = 0;
-        CardsSuit = Suit.clubs;
+public class CardA {
+    int rank;
+    Suit suit;
+
+    public CardA(){
     }
 }
